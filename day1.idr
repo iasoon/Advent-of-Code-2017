@@ -1,22 +1,23 @@
 import Data.String
 
 
-rotateList : List a -> List a
-rotateList [] = []
-rotateList (x::xs) = xs ++ [x]
+rotateList : Nat -> List a -> List a
+rotateList n xs = (drop n xs) ++ (take n xs)
 
 -- ignore non-numeric characters
-readNumbers : String -> List Int
-readNumbers = mapMaybe (parseInteger . singleton) . unpack
+readNumbers : String -> List Nat
+readNumbers = mapMaybe (parsePositive . singleton) . unpack
 
-calcResult : List Int -> Int
-calcResult xs = sum $ map pairValue $ List.zip xs (rotateList xs) where
-    pairValue : (Int, Int) -> Int
+calcResult : List Nat -> Nat
+calcResult xs = sum $ map pairValue $ zip xs pairing where
+    pairing : List Nat
+    pairing = rotateList (div (length xs) 2) xs
+    pairValue : (Nat, Nat) -> Nat
     pairValue (a, b) = if a == b then a else 0
 
 
-solveCaptcha : String -> Int
-solveCaptcha = calcResult . readNumbers
+solveCaptcha : String -> Nat
+solveCaptcha str = calcResult $ readNumbers str
 
 
 main : IO ()
