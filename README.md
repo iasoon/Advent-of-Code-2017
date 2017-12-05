@@ -14,3 +14,6 @@ While the first part of the challenge didn't really require any actual programmi
 
 ## Day 4
 Today's challenge was quite simple, only requiring some list filtering and deduplication. Since these needs are well covered in the Idris standard library, it didn't take too long to finish.
+
+## Day 5
+I managed to create a working solution with vectors (yay, progress), but it turned out way too slow. I tried using a zipper instead, which worked out nicely.
